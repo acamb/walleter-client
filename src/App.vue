@@ -2,12 +2,23 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <a @click.prevent="logout" class='router-link'>Logout</a>
     </div>
     <router-view/>
   </div>
 </template>
-
+<script>
+import {userService} from '@/services/user.service'
+import router from '@/router'
+export default {
+  methods: {
+    logout(){
+        userService.logout();
+        router.push('/')
+    }
+  }
+}
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
