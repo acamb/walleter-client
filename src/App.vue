@@ -8,12 +8,13 @@
   </div>
 </template>
 <script>
-import {userService} from '@/services/user.service'
+import { mapActions } from 'vuex'
 import router from '@/router'
 export default {
   methods: {
-    logout(){
-        userService.logout();
+    ...mapActions(['logout']),
+    doLogout(){
+        this.logout()
         router.push('/')
     }
   }

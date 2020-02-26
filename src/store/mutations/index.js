@@ -1,5 +1,10 @@
 export default {
-    login(state,user){
-        state['user'] = user
+    login(state,payload){
+        state['user'] = payload.user
+        state['token'] = payload.token
+    },
+    logout(state){
+        state['user'] = null,
+        state['token'] = null
     }
 }

@@ -1,7 +1,7 @@
 <template>
 <b-container>
     <div v-if="error" class='alert alert-danger'>Login errata</div>
-    <b-form @submit.prevent='login'>
+    <b-form @submit.prevent='doLogin'>
         <b-row>
             <b-col offset='3' md='6'>    
             <b-form-group label='Username' label-for='username'>
@@ -12,7 +12,7 @@
         <b-row>
             <b-col offset='3' md='6'>    
                 <b-form-group label='Password' label-for='password'>
-                    <b-form-input id='password' type='password' v-model="password" required/>
+                    <b-form-input id='password' type='text' v-model="password" required/>
                 </b-form-group>
             </b-col>
         </b-row>
@@ -25,28 +25,22 @@
 </b-container>
 </template>
 <script>
-import {userService} from '@/services/user.service'
-import router from '@/router'
+import { mapActions} from 'vuex'
+import { mapState } from 'vuex'
 export default {
     data() {
         return {
             username: "",
-            password: "",
-            error: false
+            password: ""
         }
     },
+    computed: {
+        ...mapState(['error'])
+    },
     methods: {
-        login(){
-            console.log('login: ' + this.username)
-            userService.login(this.username,this.password)
-            .then(() =>{
-                router.push('home')
-            },
-            res =>{
-                this.error=true
-                console.log(res)
-            })
-            
+        ...mapActions(['login']),
+        doLogin(){
+            this.login({username:this.username,password:this.password})
         }
     }
 }
