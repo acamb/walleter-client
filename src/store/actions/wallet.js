@@ -4,12 +4,18 @@ export const walletActions = {
     getWallets
 }
 
-async function createWallet({dispatch},description,amount){
-    await Vue.axios.post('/wallet',{
-        description: description,
-        amount: amount
+async function createWallet({dispatch},payload){
+    return new Promise((resolve,reject) =>{
+        Vue.axios.post('/wallet',{
+            description: payload.description,
+            amount: payload.amount
+        }).then(() => {dispatch('getWallets')}
+                , error => {
+                    reject(error)
+                })
+        .then(()=> resolve())
     })
-    dispatch('getWallets')
+
 }
 
 async function getWallets({commit}){

@@ -4,12 +4,13 @@ import {shareActions} from './share'
 import router from '@/router'
 import Vue from 'vue'
 export default {
-    login({commit},payload){
+    login({commit,dispatch},payload){
         Vue.axios.post('/auth',{username:payload.username,password:payload.password})
             .then(response => {
                 commit('login',response.data)
                 Vue.axios.defaults.headers = {'Authorization': 'Bearer ' + response.data.token}
-                router.push('/home')
+                dispatch('getWallets')
+                router.push('/')
             }, () => {
                 commit('error','Wrong username or password')
             })

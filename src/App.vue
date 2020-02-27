@@ -2,7 +2,7 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <a @click.prevent="logout" class='router-link'>Logout</a>
+      <a @click.prevent="doLogout()" class='router-link'>Logout</a>
     </div>
     <router-view/>
   </div>
@@ -15,9 +15,10 @@ export default {
     ...mapActions(['logout']),
     doLogout(){
         this.logout()
-        router.push('/')
+        router.push('/login')
     }
   }
+  
 }
 </script>
 <style>

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import LoginComponent from '@/components/LoginComponent'
+import store from '@/store'
 Vue.use(VueRouter)
 
 const routes = [
@@ -23,10 +24,10 @@ const router = new VueRouter({
 
 router.beforeEach((to,from,next) => {
 
-  const loggedIn = sessionStorage.getItem('auth') != undefined;
+  const loggedIn = store.state.user != undefined;
   const publicPaths = ['/login']
   if(! (publicPaths.includes(to.path) || loggedIn) ){
-    return next('login')
+    return next('/login')
   }
   next();
 })

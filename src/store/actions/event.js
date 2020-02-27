@@ -7,7 +7,7 @@ export const eventActions = {
 
 async function getEvents({commit},walletId){
     let eventiResponse = await Vue.axios.get('/event',{params: {walletId: walletId}})
-    commit('getEvents',eventiResponse.data)
+    commit('getEvents',{walletId:walletId,events:eventiResponse.data})
 }
 
 async function addEvent({dispatch},event,walletId){

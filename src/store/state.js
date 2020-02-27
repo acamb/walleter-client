@@ -1,6 +1,6 @@
 export default {
-    user: undefined,
-    token: undefined,
+    user: sessionStorage.getItem('user'),
+    token: sessionStorage.getItem('token'),
     wallets: undefined,
     ownedShareRequests: undefined,
     shareRequests: undefined,
