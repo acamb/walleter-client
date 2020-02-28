@@ -12,6 +12,9 @@ Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 Vue.use(VueAxios, axios)
 Vue.axios.defaults.baseURL=config.apiUrl
+if(sessionStorage.getItem('token')){
+  Vue.axios.defaults.headers = {'Authorization': 'Bearer ' + sessionStorage.getItem('token')}
+}
 new Vue({
   router,
   store,

@@ -5,30 +5,33 @@ export const eventActions = {
     removeEvent
 }
 
-async function getEvents({commit},walletId){
-    let eventiResponse = await Vue.axios.get('/event',{params: {walletId: walletId}})
-    commit('getEvents',{walletId:walletId,events:eventiResponse.data})
+async function getEvents({commit,state},payload){
+    if(state.walletEventMap === undefined || state.walletEventMap[payload.id] === undefined ||
+        payload.force){
+        let eventiResponse = await Vue.axios.get('/event',{params: {walletId: payload.walletId}})
+        commit('getEvents',{walletId:payload.walletId,events:eventiResponse.data})
+    }
 }
 
-async function addEvent({dispatch},event,walletId){
+async function addEvent({dispatch},payload){
     await Vue.axios.post('/event',
     {
-        walletId: walletId,
+        walletId: payload.walletId,
         event: {
             description:event.description,
             amount: event.amount
         }
     }
     )
-    dispatch('getEvents')
+    dispatch('getEvents',{walletId:payload.walletId,force:true})
 }
 
-async function removeEvent({dispatch},event,wallet){
+async function removeEvent({dispatch},payload){
     await Vue.axios.delete('/event',
     {
-        wallet: { id: wallet.id },
-        event: { id: event.id }
+        wallet: { id: payload.wallet.id },
+        event: { id: payload.event.id }
     }
     )
-    dispatch('getEvents')
+    dispatch('getEvents',{walletId:payload.walletId,force:true})
 }

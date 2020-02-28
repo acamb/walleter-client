@@ -1,7 +1,8 @@
 import Vue from 'vue'
 export const walletActions = {
     createWallet,
-    getWallets
+    getWallets,
+    deleteWallet
 }
 
 async function createWallet({dispatch},payload){
@@ -9,7 +10,7 @@ async function createWallet({dispatch},payload){
         Vue.axios.post('/wallet',{
             description: payload.description,
             amount: payload.amount
-        }).then(() => {dispatch('getWallets')}
+        }).then(() => {dispatch('getWallets',{force:true})}
                 , error => {
                     reject(error)
                 })
@@ -18,7 +19,22 @@ async function createWallet({dispatch},payload){
 
 }
 
-async function getWallets({commit}){
-    let response = await Vue.axios.get('/wallet')
-    commit('getWallets',response.data)
+async function deleteWallet({dispatch},payload){
+    return new Promise((resolve,reject) =>{
+        Vue.axios.delete('/wallet',{
+            id: payload.description
+        }).then(() => {dispatch('getWallets',{force:true})}
+                , error => {
+                    reject(error)
+                })
+        .then(()=> resolve())
+    })
+
+}
+
+async function getWallets({commit,state},options){
+    if(state.wallets === undefined || (options && options.force)){
+        let response = await Vue.axios.get('/wallet')
+        commit('getWallets',response.data)
+    }
 }
