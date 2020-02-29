@@ -1,21 +1,13 @@
 <template>
     <div class="container">
         <b-row>
-            <b-col md="2">
-                <b-btn variant="primary" @click="showForm()">
-                    Add a wallet
-                </b-btn>
-            </b-col>
-        </b-row>
-        <br /><br /><br />
-        <b-row v-if="show">
-            <b-col offset-md="3" md="6">
+            <b-col md="12">
                 <div v-if='error'>
                 <b-alert variant="danger" >
                     {{error}}
                 </b-alert>
                 </div>
-                <b-card title="Wallet">
+                <b-card title="New Wallet">
                     <b-form @click.prevent="save">
                         <b-form-group label="Description">
                             <b-form-input
@@ -45,7 +37,6 @@ import { mapActions } from 'vuex';
 export default {
     data() {
         return {
-            show: false,
             walletName: '',
             walletAmount: '',
             error: undefined
@@ -53,9 +44,6 @@ export default {
     },
     methods: {
         ...mapActions(['createWallet']),
-        showForm() {
-            this.show = !this.show;
-        },
         save() {
             if(isNaN(parseInt(this.walletAmount)) || parseInt(this.walletAmount)  < 0){
                 this.error="Please enter a positive number for balance field"
@@ -67,7 +55,7 @@ export default {
                 }).then(() => {
                     this.walletName = ''
                     this.walletAmount = '';
-                    this.show=false;
+                    this.$emit('onsave')
                 });
             }
         }

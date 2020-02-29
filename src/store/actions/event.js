@@ -6,9 +6,9 @@ export const eventActions = {
 }
 
 async function getEvents({commit,state},payload){
-    if(state.walletEventMap === undefined || state.walletEventMap[payload.id] === undefined ||
+    if(state.walletEventMap === undefined || state.walletEventMap[payload.walletId] === undefined ||
         payload.force){
-        let eventiResponse = await Vue.axios.get('/event',{params: {walletId: payload.walletId}})
+        let eventiResponse = await Vue.axios.get('/event?walletId='+ payload.walletId)
         commit('getEvents',{walletId:payload.walletId,events:eventiResponse.data})
     }
 }
@@ -17,10 +17,7 @@ async function addEvent({dispatch},payload){
     await Vue.axios.post('/event',
     {
         walletId: payload.walletId,
-        event: {
-            description:event.description,
-            amount: event.amount
-        }
+        event: payload.event
     }
     )
     dispatch('getEvents',{walletId:payload.walletId,force:true})

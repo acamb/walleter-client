@@ -2,18 +2,13 @@
     <div>
         Home
         <br/><br/>
-        <WalletList :wallets="wallets" v-if="wallets != undefined && wallets.length > 0"></WalletList>
-        <div v-else>
-            You have no wallets, create one!
-        </div>
-        <CreateWallet></CreateWallet>
+        <WalletList :wallets="wallets"></WalletList>
     </div>
 </template>
 <script>
 import { mapActions} from 'vuex'
 import { mapState } from 'vuex' 
 import WalletList from './WalletListComponent.vue'
-import CreateWallet from './CreateWalletComponent'
 export default {
     data() {
         return {
@@ -31,10 +26,9 @@ export default {
         ...mapActions(['createWallet'])
     },
     components:{
-        WalletList,
-        CreateWallet
+        WalletList
     },
-    mounted: function(){
+    created: function(){
         this.$store.dispatch('getWallets')
     }
 }
