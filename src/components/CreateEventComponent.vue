@@ -8,7 +8,7 @@
                 </b-alert>
                 </div>
                 <b-card title="New Event">
-                    <b-form @click.prevent="save">
+                    <b-form @submit.prevent="save">
                         <b-form-group label="Description">
                             <b-form-input
                                 type="text"
@@ -33,7 +33,7 @@
                                 v-model="eventDate"
                             />
                         </b-form-group>
-                        <b-btn variant="success">Save</b-btn>
+                        <b-btn type='submit' variant="success">Save</b-btn>
                     </b-form>
                 </b-card>
             </b-col>
@@ -42,13 +42,15 @@
 </template>
 <script>
 import {mapActions} from 'vuex'
+import {mapState} from 'vuex'
 export default {
     props:['walletId'],
     data(){
         return {
             eventName:'',
             eventAmount:'',
-            eventDate: ''
+            eventDate: '',
+            ...mapState(['error'])
         }
     },
     methods: {

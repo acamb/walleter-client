@@ -28,7 +28,7 @@ export default {
     components:{
         WalletList
     },
-    created: function(){
+    mounted: function(){
         this.$store.dispatch('getWallets')
     }
 }

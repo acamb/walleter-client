@@ -33,7 +33,7 @@ async function deleteWallet({dispatch},payload){
 }
 
 async function getWallets({commit,state},options){
-    if(state.wallets === undefined || (options && options.force)){
+    if(state.wallets.length === 0 || (options && options.force)){
         let response = await Vue.axios.get('/wallet')
         commit('getWallets',response.data)
     }

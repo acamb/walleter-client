@@ -35,18 +35,20 @@
                                     <td>{{ wallet.description }}</td>
                                     <td>{{ wallet.balance }}</td>
                                     <td>
-                                        <b-btn-group>
+                                        
                                             <b-btn
                                                 variant="primary"
                                                 @click="details(wallet.id)"
+                                                
                                                 >Details</b-btn
-                                            >
+                                            >&nbsp;
                                             <b-btn
                                                 variant="danger"
                                                 @click="deleteW(wallet.id)"
-                                                >Delete</b-btn
+                                                class='rounded'
+                                                >X</b-btn
                                             >
-                                        </b-btn-group>
+                                        
                                     </td>
                                 </tr>
                             </tbody>

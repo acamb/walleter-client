@@ -1,5 +1,6 @@
+import Vue from 'vue'
 export default {
     getEvents(state,payload){
-        state['walletEventsMap'][payload.walletId] = payload.events
+        Vue.set(state.walletEventsMap,payload.walletId,payload.events)
     }
 }

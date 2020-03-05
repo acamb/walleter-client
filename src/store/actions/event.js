@@ -5,30 +5,36 @@ export const eventActions = {
     removeEvent
 }
 
-async function getEvents({commit,state},payload){
-    if(state.walletEventMap === undefined || state.walletEventMap[payload.walletId] === undefined ||
-        payload.force){
-        let eventiResponse = await Vue.axios.get('/event?walletId='+ payload.walletId)
-        commit('getEvents',{walletId:payload.walletId,events:eventiResponse.data})
+async function getEvents({ commit, state }, payload) {
+    if (state.walletEventsMap === undefined || state.walletEventsMap[payload.walletId] === undefined ||
+        state.walletEventsMap[payload.walletId].length === 0 ||
+        payload.force) {
+        let eventiResponse = await Vue.axios.get('/event?walletId=' + payload.walletId)
+        commit('getEvents', { walletId: payload.walletId, events: eventiResponse.data })
     }
 }
 
-async function addEvent({dispatch},payload){
-    await Vue.axios.post('/event',
-    {
-        walletId: payload.walletId,
-        event: payload.event
-    }
+async function addEvent({ dispatch,commit }, payload) {
+    let wallet=await Vue.axios.post('/event',
+        {
+            walletId: payload.walletId,
+            event: payload.event
+        }
     )
-    dispatch('getEvents',{walletId:payload.walletId,force:true})
+    dispatch('getEvents', { walletId: payload.walletId, force: true })
+    commit('updateWallet', { wallet:wallet.data })
 }
 
-async function removeEvent({dispatch},payload){
-    await Vue.axios.delete('/event',
-    {
-        wallet: { id: payload.wallet.id },
-        event: { id: payload.event.id }
-    }
+async function removeEvent({ dispatch,commit }, payload) {
+    let wallet=await Vue.axios.delete('/event',
+        {
+            data: {
+
+                wallet: { id: payload.wallet.id },
+                event: { id: payload.event.id }
+            }
+        }
     )
-    dispatch('getEvents',{walletId:payload.walletId,force:true})
+    dispatch('getEvents', { walletId: payload.wallet.id, force: true })
+    commit('updateWallet', { wallet:wallet.data })
 }
