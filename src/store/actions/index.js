@@ -2,22 +2,21 @@ import {walletActions} from './wallet'
 import {eventActions} from './event'
 import {shareActions} from './share'
 import router from '@/router'
-import Vue from 'vue'
+import walleterService from '../../services/walleter.service'
 export default {
-    login({commit},payload){
-        Vue.axios.post('/auth',{username:payload.username,password:payload.password})
-            .then(response => {
-                commit('login',response.data)
-                Vue.axios.defaults.headers = {'Authorization': 'Bearer ' + response.data.token}
-                router.push('/')
-            }, () => {
-                commit('error','Wrong username or password')
-            })
-            
+    async login({commit},payload){
+        try{
+            const response = await walleterService.login(payload.username,payload.password)
+            commit('login',response.data)
+            router.push('/')
+        }
+        catch(error){
+            commit('error','Wrong username or password')
+        }
     },
     logout({commit}){
         commit('logout')
-        Vue.axios.defaults.headers = {}
+        walleterService.setHeaders({})
         router.push('/')
     },
     ...walletActions,

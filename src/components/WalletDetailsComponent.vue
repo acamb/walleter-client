@@ -89,8 +89,9 @@ export default {
             });
         }
     },
-    created() {
-        this.getEvents({ walletId: this.id });
+    async beforeRouteEnter(to,from,next){
+        await this.getEvents({ walletId: this.id });
+        next()
     },
     components: {
         CreateEvent

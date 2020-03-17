@@ -4,20 +4,32 @@
     <b-form @submit.prevent='doLogin'>
         <b-row>
             <b-col offset='3' md='6'>    
-            <b-form-group label='Username' label-for='username'>
-                <b-form-input id='username' type='text' v-model="username" required/>
-            </b-form-group>
+            <b-input-group label='Username' label-for='username'>
+                <b-form-input name='username' type='text' v-model="username" required placeholder="Username"/>
+                <b-input-group-append is-text>
+                    <b-icon-person></b-icon-person>
+                </b-input-group-append>
+            </b-input-group>
             </b-col>
         </b-row>
         <b-row>
             <b-col offset='3' md='6'>    
-                <b-form-group label='Password' label-for='password'>
-                    <b-form-input id='password' type='text' v-model="password" required/>
-                </b-form-group>
+                <b-input-group label='Password' label-for='password'>
+                    
+                    <b-form-input name='password' :type="showPassword ? 'text' : 'password'" v-model="password" required placeholder="Password"/>
+                    <b-input-group-append title="show password">
+                        <b-input-group-text @click="togglePassword()">
+                            <b-icon-unlock v-if="showPassword"></b-icon-unlock>
+                            <b-icon-lock v-if="!showPassword" ></b-icon-lock>
+                        </b-input-group-text>
+                    </b-input-group-append>
+                        
+                </b-input-group>
             </b-col>
         </b-row>
         <b-row>
             <b-col offset='5' md='2'>
+                <br/>
                 <b-button type='submit' variant='primary'>Login</b-button>
             </b-col>
         </b-row>
@@ -31,7 +43,8 @@ export default {
     data() {
         return {
             username: "",
-            password: ""
+            password: "",
+            showPassword : false
         }
     },
     computed: {
@@ -41,6 +54,9 @@ export default {
         ...mapActions(['login']),
         doLogin(){
             this.login({username:this.username,password:this.password})
+        },
+        togglePassword(){
+            this.showPassword = !this.showPassword
         }
     }
 }

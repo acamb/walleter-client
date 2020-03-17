@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import walleterService from '../../services/walleter.service'
 export const shareActions = {
     createShare,
     acceptShare,
@@ -10,39 +10,27 @@ export const shareActions = {
 async function getShares({commit,state},options){
     if(state.ownedShareRequests === undefined && state.shareRequests == undefined ||
         (options && options.force)){
-        let response = Vue.axios.get('/share')
+        let response = walleterService.getShares()
         commit('getShares',response.data)
     }
 }
 
 async function createShare({dispatch},payload){
-    await Vue.axios.post('/share',{walletId: payload.walletId,username: payload.usernameToShare})
+    await walleterService.createShare(payload.walletId,payload.usernameToShare)
     dispatch('getShares',{force:true})
 }
 
 async function acceptShare({dispatch},shareRequest){
-    await Vue.axios.post('/share',{
-        shareRequest: {
-            id: shareRequest.id
-        },
-        status: 'ACCEPTED'})
+    await walleterService.acceptShare(shareRequest.id)
         dispatch('getShares',{force:true})
 }
 
 async function rejectShare({dispatch},shareRequest){
-    await Vue.axios.post('/share',{
-        shareRequest: {
-            id: shareRequest.id
-        },
-        status: 'REJECTED'})
+    await walleterService.rejectShare(shareRequest.id)
         dispatch('getShares',{force:true})
 }
 
 async function deleteShare({dispatch},payload){
-    await Vue.axios.delete('/share',{
-        wallet: {
-            id: payload.wallet.id
-        },
-        username: payload.username})
+    await walleterService.deleteShare(payload.wallet.id,payload.username)
         dispatch('getShares',{force:true})
 }

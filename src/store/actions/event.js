@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import WalletService from '@/services/walleter.service.js'
 export const eventActions = {
     getEvents,
     addEvent,
@@ -9,13 +9,13 @@ async function getEvents({ commit, state }, payload) {
     if (state.walletEventsMap === undefined || state.walletEventsMap[payload.walletId] === undefined ||
         state.walletEventsMap[payload.walletId].length === 0 ||
         payload.force) {
-        let eventiResponse = await Vue.axios.get('/event?walletId=' + payload.walletId)
+        let eventiResponse = await WalletService.getEvents(payload.walletId)
         commit('getEvents', { walletId: payload.walletId, events: eventiResponse.data })
     }
 }
 
 async function addEvent({ dispatch,commit }, payload) {
-    let wallet=await Vue.axios.post('/event',
+    let wallet=await WalletService.addEvent(
         {
             walletId: payload.walletId,
             event: payload.event
@@ -26,15 +26,7 @@ async function addEvent({ dispatch,commit }, payload) {
 }
 
 async function removeEvent({ dispatch,commit }, payload) {
-    let wallet=await Vue.axios.delete('/event',
-        {
-            data: {
-
-                wallet: { id: payload.wallet.id },
-                event: { id: payload.event.id }
-            }
-        }
-    )
+    let wallet=await WalletService.deleteEvent(payload.wallet.id,payload.event.id)
     dispatch('getEvents', { walletId: payload.wallet.id, force: true })
     commit('updateWallet', { wallet:wallet.data })
 }

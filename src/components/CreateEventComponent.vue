@@ -49,7 +49,7 @@ export default {
         return {
             eventName:'',
             eventAmount:'',
-            eventDate: '',
+            eventDate: new Date(),
             ...mapState(['error'])
         }
     },

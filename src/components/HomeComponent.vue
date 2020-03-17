@@ -28,8 +28,9 @@ export default {
     components:{
         WalletList
     },
-    mounted: function(){
-        this.$store.dispatch('getWallets')
+    async beforeRouteEnter(to,from,next){
+        await this.$store.dispatch('getWallets')
+        next()
     }
 }
 </script>

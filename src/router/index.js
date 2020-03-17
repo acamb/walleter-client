@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import WalletDetailsComponent from '@/components/WalletDetailsComponent'
 import LoginComponent from '@/components/LoginComponent'
 import store from '@/store'
+import nProgress from 'nprogress'
 Vue.use(VueRouter)
 
 const routes = [
@@ -36,7 +37,12 @@ router.beforeEach((to,from,next) => {
   if(! (publicPaths.includes(to.path) || loggedIn) ){
     return next('/login')
   }
+  nProgress.start()
   next();
+})
+
+router.afterEach(() => {
+  nProgress.done()
 })
 
 export default router
