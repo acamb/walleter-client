@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import HomeComponent from '../components/HomeComponent.vue'
 import WalletDetailsComponent from '@/components/WalletDetailsComponent'
 import LoginComponent from '@/components/LoginComponent'
 import store from '@/store'
@@ -11,7 +11,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: HomeComponent
   },
   {
     path: '/login',
@@ -30,11 +30,11 @@ const router = new VueRouter({
   routes
 })
 
-router.beforeEach((to,from,next) => {
+router.beforeEach((to, from, next) => {
 
   const loggedIn = store.state.user != undefined;
   const publicPaths = ['/login']
-  if(! (publicPaths.includes(to.path) || loggedIn) ){
+  if (!(publicPaths.includes(to.path) || loggedIn)) {
     return next('/login')
   }
   nProgress.start()

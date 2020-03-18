@@ -1,9 +1,13 @@
 export default {
-    user: sessionStorage.getItem('user'),
-    token: sessionStorage.getItem('token'),
-    wallets: [],
-    ownedShareRequests: [],
-    shareRequests: [],
-    walletEventsMap: {},
-    error: undefined
+    initialState: () => {
+        return {
+            user: undefined,
+            token: undefined,
+            wallets: [],
+            ownedShareRequests: [],
+            shareRequests: [],
+            walletEventsMap: {},
+            error: undefined
+        }
+    }
 }

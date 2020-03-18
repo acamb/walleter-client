@@ -4,21 +4,27 @@
             <div class="card">
                 <b-card-header>
                     <div class="card-title row">
-                        <b-col md="3">
+                        <b-col md="4" xs="3">
                             <h2 class="text-left">
                                 Wallets
                             </h2>
                         </b-col>
-                        <b-col offset="6" md="3" class="text-right">
+                        <b-col offset="6" md="2" xs="2" class="text-right">
                             <span
-                                ><b-btn variant="success" @click="show = true"
-                                    ><b>+</b></b-btn
-                                ></span
-                            >
+                                ><b-icon-plus
+                                    font-scale="2.5"
+                                    class="rounded bg-primary p-1"
+                                    variant="light"
+                                    @click="show = !show"
+                                ></b-icon-plus
+                            ></span>
                         </b-col>
                     </div>
 
-                    <CreateWallet v-if="show" @onsave='show=false'></CreateWallet>
+                    <CreateWallet
+                        v-if="show"
+                        @onsave="show = false"
+                    ></CreateWallet>
                 </b-card-header>
                 <div class="card-body">
                     <b-col md="12">
@@ -35,20 +41,19 @@
                                     <td>{{ wallet.description }}</td>
                                     <td>{{ wallet.balance }}</td>
                                     <td>
-                                        
-                                            <b-btn
-                                                variant="primary"
-                                                @click="details(wallet.id)"
-                                                
-                                                >Details</b-btn
-                                            >&nbsp;
-                                            <b-btn
-                                                variant="danger"
-                                                @click="deleteW(wallet.id)"
-                                                class='rounded'
-                                                >X</b-btn
-                                            >
-                                        
+                                        <b-icon-info
+                                            variant="light"
+                                            class="bg-primary rounded"
+                                            font-scale="2"
+                                            @click="details(wallet.id)"
+                                            >Details</b-icon-info
+                                        >&nbsp;
+                                        <b-icon-x-circle
+                                            font-scale="2"
+                                            variant="light"
+                                            @click="deleteW(wallet.id)"
+                                            class="rounded bg-danger"
+                                        ></b-icon-x-circle>
                                     </td>
                                 </tr>
                             </tbody>

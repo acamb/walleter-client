@@ -1,28 +1,40 @@
 <template>
-    <div id="app">
-        <div id="nav">
-            <router-link to="/">Home</router-link> 
-            <b-btn
-                variant="danger"
-                @click.prevent="doLogout()"
-                class="router-link"
-                v-if='user'
-                >Logout</b-btn
-            >
-        </div>
-        <router-view />
+    <div>
+        <b-navbar variant="light" :sticky="true" align="center" id="nav">
+            <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+            <b-collapse id="nav-collapse" is-nav>
+                <b-navbar-nav>
+                    <b-navbar-brand href="#">Walleter</b-navbar-brand>
+                    <b-nav-item>
+                        <router-link to="/">Home</router-link>
+                    </b-nav-item>
+                </b-navbar-nav>
+            </b-collapse>
+            <b-navbar-nav class="ml-auto">
+                <b-nav-item title="Logout">
+                    <b-icon-box-arrow-right
+                        font-scale="2"
+                        @click.prevent="doLogout()"
+                        class="router-link"
+                        v-if="user"
+                    >
+                    </b-icon-box-arrow-right>
+                </b-nav-item>
+            </b-navbar-nav>
+        </b-navbar>
+        <b-container id="app">
+            <router-view />
+        </b-container>
     </div>
 </template>
 <script>
 import { mapActions } from 'vuex';
 import { mapState } from 'vuex';
-import router from '@/router';
 export default {
     methods: {
-        ...mapActions(['logout','getWallets']),
+        ...mapActions(['logout']),
         doLogout() {
             this.logout();
-            router.push('/login');
         }
     },
     computed: {
@@ -37,21 +49,5 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-}
-
-#nav {
-    padding: 30px;
-}
-
-#nav a {
-    font-weight: bold;
-    color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-    color: #42b983;
-}
-.rounded{
-    border-radius: 25px!important;
 }
 </style>

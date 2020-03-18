@@ -3,30 +3,30 @@ import Axios from "axios";
 
 
 const apiClient = Axios.create({
-    baseURL:'http://localhost:8081',
+    baseURL: 'http://localhost:8081',
     withCredentials: false,
-      headers: {
+    headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
-      }
-   
+    }
+
 })
 
 export default {
 
-    setHeaders(headers){
-        apiClient.defaults.headers.common['Authorization'] =headers
+    setHeaders(headers) {
+        apiClient.defaults.headers.common['Authorization'] = headers
     },
-    
-    getEvent(walletId){
+
+    getEvents(walletId) {
         return apiClient.get('/event?walletId=' + walletId)
     },
 
-    addEvent(event){
-        return apiClient.post('/event',event)
+    addEvent(event) {
+        return apiClient.post('/event', event)
     },
 
-    deleteEvent(walletId,eventId){
+    deleteEvent(walletId, eventId) {
         return apiClient.delete('/event',
             {
                 data: {
@@ -38,55 +38,58 @@ export default {
         )
     },
 
-    getShares(){
+    getShares() {
         return apiClient.get('/share')
     },
 
-    createShare(walletId,usernameToShare){
-        return apiClient.post('/share',{walletId: walletId,username: usernameToShare})
+    createShare(walletId, usernameToShare) {
+        return apiClient.post('/share', { walletId: walletId, username: usernameToShare })
     },
 
-    acceptShare(id){
-        return apiClient.post('/share',{
+    acceptShare(id) {
+        return apiClient.post('/share', {
             shareRequest: {
                 id: id
             },
-            status: 'ACCEPTED'})
+            status: 'ACCEPTED'
+        })
     },
 
-    rejectShare(id){
-        return apiClient.post('/share',{
+    rejectShare(id) {
+        return apiClient.post('/share', {
             shareRequest: {
                 id: id
             },
-            status: 'REJECTED'})
+            status: 'REJECTED'
+        })
     },
 
-    deleteShare(walletId,username){
-        return apiClient.delete('/share',{
+    deleteShare(walletId, username) {
+        return apiClient.delete('/share', {
             wallet: {
                 id: walletId
             },
-            username: username})
+            username: username
+        })
     },
 
-    getWallets(){
+    getWallets() {
         return apiClient.get('/wallet')
     },
 
-    createWallet(description,amount){
-        return apiClient.post('/wallet',{
+    createWallet(description, amount) {
+        return apiClient.post('/wallet', {
             description: description,
             amount: amount
         })
     },
 
-    deleteWallet(id){
-        return apiClient.delete('/wallet',{id:id})
+    deleteWallet(id) {
+        return apiClient.delete('/wallet', { id: id })
     },
 
-    login(username,password){
-        return apiClient.post('/auth',{username:username,password:password})
+    login(username, password) {
+        return apiClient.post('/auth', { username: username, password: password })
     }
 
 }

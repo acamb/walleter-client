@@ -1,36 +1,39 @@
 <template>
     <div>
         Home
-        <br/><br/>
+        <br /><br />
         <WalletList :wallets="wallets"></WalletList>
     </div>
 </template>
 <script>
-import { mapActions} from 'vuex'
-import { mapState } from 'vuex' 
-import WalletList from './WalletListComponent.vue'
+import { mapActions } from 'vuex';
+import { mapState } from 'vuex';
+import WalletList from './WalletListComponent.vue';
+import store from '@/store';
 export default {
     data() {
         return {
-            walletName: "",
+            walletName: '',
             walletAmount: 0
-        }
+        };
     },
     computed: {
         ...mapState(['wallets'])
     },
     methods: {
-        createNewWallet(){
-            this.createWallet({description: this.walletName,amount: this.walletAmount})  
+        createNewWallet() {
+            this.createWallet({
+                description: this.walletName,
+                amount: this.walletAmount
+            });
         },
         ...mapActions(['createWallet'])
     },
-    components:{
+    components: {
         WalletList
     },
-    async beforeRouteEnter(to,from,next){
-        await this.$store.dispatch('getWallets')
-        next()
+    beforeRouteEnter(to, from, next) {
+        store.dispatch('getWallets').then(() => next());
     }
-}
+};
 </script>

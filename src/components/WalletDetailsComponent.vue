@@ -15,11 +15,14 @@
                                 Events
                             </b-col>
                             <b-col offset="8" md="2" class="text-right">
-                                <b-button
-                                    variant="success"
-                                    @click="show = !show"
-                                    ><b>+</b></b-button
-                                >
+                                <span>
+                                    <b-icon-plus
+                                        font-scale="2"
+                                        class="rounded bg-primary p-1"
+                                        variant="light"
+                                        @click="show = !show"
+                                    ></b-icon-plus>
+                                </span>
                             </b-col>
                             <b-col md="12" v-if="show">
                                 <CreateEvent
@@ -38,12 +41,12 @@
                             :current-page="currentPage"
                         >
                             <template v-slot:cell(actions)="row">
-                                <b-btn
-                                    variant="danger"
+                                <b-icon-x-circle
+                                    variant="light"
+                                    font-scale="2"
                                     @click="deleteEvent(row.item)"
-                                    class="rounded"
-                                    >X</b-btn
-                                >
+                                    class="rounded bg-danger"
+                                ></b-icon-x-circle>
                             </template>
                         </b-table>
                         <b-pagination
@@ -60,6 +63,7 @@
 <script>
 import { mapActions } from 'vuex';
 import { mapGetters } from 'vuex';
+import store from '@/store';
 import CreateEvent from '@/components/CreateEventComponent';
 export default {
     props: ['id'],
@@ -81,7 +85,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['addEvent', 'removeEvent', 'getEvents']),
+        ...mapActions(['addEvent', 'removeEvent']),
         deleteEvent(event) {
             this.removeEvent({
                 wallet: { id: this.id },
@@ -89,13 +93,12 @@ export default {
             });
         }
     },
-    async beforeRouteEnter(to,from,next){
-        await this.getEvents({ walletId: this.id });
-        next()
+    async beforeRouteEnter(to, from, next) {
+        await store.dispatch('getEvents', { walletId: to.params['id'] });
+        next();
     },
     components: {
         CreateEvent
     }
 };
 </script>
-
