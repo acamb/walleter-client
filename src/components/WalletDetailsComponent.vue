@@ -17,7 +17,7 @@
                             <b-col offset="8" md="2" class="text-right">
                                 <span>
                                     <b-icon-plus
-                                        font-scale="2"
+                                        font-scale=""
                                         class="rounded bg-primary p-1"
                                         variant="light"
                                         @click="show = !show"

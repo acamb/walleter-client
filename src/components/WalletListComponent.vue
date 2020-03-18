@@ -20,11 +20,12 @@
                             ></span>
                         </b-col>
                     </div>
-
-                    <CreateWallet
-                        v-if="show"
-                        @onsave="show = false"
-                    ></CreateWallet>
+                    <transition name="create">
+                        <CreateWallet
+                            v-if="show"
+                            @onsave="show = false"
+                        ></CreateWallet>
+                    </transition>
                 </b-card-header>
                 <div class="card-body">
                     <b-col md="12">
@@ -92,3 +93,17 @@ export default {
     }
 };
 </script>
+<style scoped>
+.create-enter {
+    opacity: 0;
+    width: 0px;
+}
+.create-enter-active {
+    transition: all 0.2s ease-out;
+}
+.create-leave-active {
+    transition: all 0.2s ease-out;
+    width: 0px;
+    opacity: 0;
+}
+</style>
