@@ -2,7 +2,7 @@ import eventMutations from './event'
 import shareMutations from './share'
 import walletMutations from './wallet'
 import walleterService from '@/services/walleter.service.js'
-//import initialState from '@/store/state.js'
+import storeState from '@/store/state.js'
 export default {
     login(state, payload) {
         state['user'] = payload.user
@@ -12,12 +12,11 @@ export default {
         walleterService.setHeaders('Bearer ' + sessionStorage.getItem('token'))
     },
     logout(state) {
-        state['user'] = null,
-            state['token'] = null
         sessionStorage.removeItem('user')
         sessionStorage.removeItem('token')
         walleterService.setHeaders({})
-        //Object.assign(state, { ...initialState })
+        const newState = storeState.initialState()
+        Object.assign(state, newState)
     },
     error(state, payload) {
         state['error'] = payload

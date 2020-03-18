@@ -1,5 +1,6 @@
 <template>
     <b-container>
+        <h2>Login</h2>
         <div v-if="error" class="alert alert-danger">Login errata</div>
         <b-form @submit.prevent="doLogin">
             <b-row>

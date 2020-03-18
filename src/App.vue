@@ -23,6 +23,7 @@
             </b-navbar-nav>
         </b-navbar>
         <b-container id="app">
+            <br />
             <router-view />
         </b-container>
     </div>

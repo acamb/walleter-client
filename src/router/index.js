@@ -32,7 +32,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
 
-  const loggedIn = store.state.user != undefined;
+  const loggedIn = store.state.user !== undefined;
   const publicPaths = ['/login']
   if (!(publicPaths.includes(to.path) || loggedIn)) {
     return next('/login')

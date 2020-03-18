@@ -19,7 +19,7 @@ export default {
     },
     logout({ commit }) {
         commit('logout')
-        router.push('/')
+        router.push('/login')
     },
     ...walletActions,
     ...eventActions,
