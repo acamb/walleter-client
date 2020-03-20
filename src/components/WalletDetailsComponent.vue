@@ -76,17 +76,18 @@ export default {
         return {
             fields: [
                 {
-                    key: 'description',
-                    label: 'Description'
-                },
-                { key: 'amount', label: 'Amount' },
-                {
                     key: 'date',
                     label: 'Date',
                     formatter: value => {
                         return moment(String(value)).format('DD/MM/YYYY');
                     }
                 },
+                {
+                    key: 'description',
+                    label: 'Description'
+                },
+                { key: 'amount', label: 'Amount' },
+
                 { key: 'actions', label: '' }
             ],
             perPage: 5,

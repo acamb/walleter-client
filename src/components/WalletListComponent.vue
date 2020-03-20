@@ -1,6 +1,7 @@
 <template>
     <b-row>
-        <b-col offset="3" md="6">
+        <b-col md="3" sm="1" xs="1"></b-col>
+        <b-col md="6" sx="10" xs="10">
             <div class="card">
                 <b-card-header>
                     <div class="card-title row">

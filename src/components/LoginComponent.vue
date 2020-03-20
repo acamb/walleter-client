@@ -4,7 +4,8 @@
         <div v-if="error" class="alert alert-danger">Login errata</div>
         <b-form @submit.prevent="doLogin">
             <b-row>
-                <b-col offset="3" md="6">
+                <b-col md="3" sm="1" xs="1"></b-col>
+                <b-col md="6" sx="10" xs="10">
                     <b-input-group label="Username" label-for="username">
                         <b-form-input
                             name="username"
@@ -20,7 +21,8 @@
                 </b-col>
             </b-row>
             <b-row>
-                <b-col offset="3" md="6">
+                <b-col md="3" sm="1" xs="1"></b-col>
+                <b-col md="6" sx="10" xs="10">
                     <b-input-group label="Password" label-for="password">
                         <b-form-input
                             name="password"
@@ -43,7 +45,8 @@
                 </b-col>
             </b-row>
             <b-row>
-                <b-col offset="5" md="2">
+                <b-col md="3" sm="1" xs="1"></b-col>
+                <b-col md="6">
                     <br />
                     <b-button type="submit" variant="primary">Login</b-button>
                 </b-col>
