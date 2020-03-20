@@ -29,36 +29,35 @@
                 </b-card-header>
                 <div class="card-body">
                     <b-col md="12">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Balance</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="wallet in wallets" :key="wallet.id">
-                                    <td>{{ wallet.description }}</td>
-                                    <td>{{ wallet.balance }}</td>
-                                    <td>
-                                        <b-icon-info
-                                            variant="light"
-                                            class="bg-primary rounded"
-                                            font-scale="2"
-                                            @click="details(wallet.id)"
-                                            >Details</b-icon-info
-                                        >&nbsp;
-                                        <b-icon-x-circle
-                                            font-scale="2"
-                                            variant="light"
-                                            @click="deleteW(wallet.id)"
-                                            class="rounded bg-danger"
-                                        ></b-icon-x-circle>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <b-table
+                            stacked="md"
+                            :fields="fields"
+                            :items="wallets"
+                            striped
+                            :per-page="perPage"
+                            :current-page="currentPage"
+                        >
+                            <template v-slot:cell(actions)="row">
+                                <b-icon-info
+                                    variant="light"
+                                    class="bg-primary rounded"
+                                    font-scale="2"
+                                    @click="details(row.item.id)"
+                                    >Details</b-icon-info
+                                >&nbsp;
+                                <b-icon-x-circle
+                                    font-scale="2"
+                                    variant="light"
+                                    @click="deleteW(row.item.id)"
+                                    class="rounded bg-danger"
+                                ></b-icon-x-circle>
+                            </template>
+                        </b-table>
+                        <b-pagination
+                            v-model="currentPage"
+                            :total-rows="wallets.length"
+                            :per-page="perPage"
+                        ></b-pagination>
                     </b-col>
                 </div>
             </div>
@@ -85,7 +84,17 @@ export default {
     },
     data() {
         return {
-            show: false
+            show: false,
+            fields: [
+                {
+                    key: 'name',
+                    label: 'Name'
+                },
+                { key: 'balance', label: 'Balance' },
+                { key: 'actions', label: '' }
+            ],
+            perPage: 5,
+            currentPage: 1
         };
     },
     components: {

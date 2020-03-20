@@ -24,7 +24,9 @@
         </b-navbar>
         <b-container id="app">
             <br />
-            <router-view />
+            <transition name="slide">
+                <router-view />
+            </transition>
         </b-container>
     </div>
 </template>
@@ -50,5 +52,12 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
+}
+.slide-enter {
+    transform: translateX(100px);
+    opacity: 0;
+}
+.slide-enter-active {
+    transition: all 0.3s ease-out;
 }
 </style>
