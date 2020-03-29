@@ -3,10 +3,11 @@
         <b-card-header>
             <b-card-title>
                 <b-row>
-                    <b-col md="2" class="text-left">
+                    <b-col md="6" sm="6" xs="6" class="text-left">
                         Events
                     </b-col>
-                    <b-col offset="8" md="2" class="text-right">
+                    <b-col md="4" sm="4" xs="4"></b-col>
+                    <b-col md="2" class="text-right">
                         <span>
                             <b-icon-plus
                                 font-scale="2"
@@ -49,16 +50,12 @@ export default {
     },
     computed: {
         ...mapGetters(['events']),
-        //TODO[AC] undefined?
         walletEvents: function() {
             return this.events(this.id);
-        },
-        walletScheduledEvents: function() {
-            return this.scheduledEvents(this.id);
         }
     },
     methods: {
-        ...mapActions(['addEvent', 'removeEvent']),
+        ...mapActions(['removeEvent']),
         deleteEvent(event) {
             this.removeEvent({
                 wallet: { id: this.id },

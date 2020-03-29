@@ -15,13 +15,15 @@
                     >Events</router-link
                 >
                 |
-                <router-link :to="{ path: '/scheduled/' + id + '/scheduled' }"
+                <router-link :to="{ path: '/details/' + id + '/scheduled' }"
                     >Scheduled</router-link
                 >
             </b-col>
         </b-row>
         <br />
-        <router-view></router-view>
+        <transition name="eventsview">
+            <router-view></router-view>
+        </transition>
     </div>
 </template>
 <script>
@@ -47,16 +49,11 @@ export default {
 };
 </script>
 <style scoped>
-.create-enter {
+.eventsview-enter {
+    transform: translateX(100px);
     opacity: 0;
-    width: 0px;
 }
-.create-enter-active {
+.eventsview-enter-active {
     transition: all 0.2s ease-out;
-}
-.create-leave-active {
-    transition: all 0.2s ease-out;
-    width: 0px;
-    opacity: 0;
 }
 </style>
