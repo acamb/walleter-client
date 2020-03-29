@@ -38,7 +38,7 @@
 </template>
 <script>
 import CreateScheduledEvent from '@/components/CreateScheduledEventComponent';
-import ScheduledEventListComponent from '@/components/EventListComponent';
+import ScheduledEventListComponent from '@/components/ScheduledListComponent';
 import { mapActions } from 'vuex';
 import { mapGetters } from 'vuex';
 export default {

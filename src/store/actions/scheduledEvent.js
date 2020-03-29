@@ -23,7 +23,7 @@ async function addScheduledEvent({ commit }, payload) {
             event: payload.event
         }
     )
-    commit('getScheduledEvents', { walletId: payload.walletId, events: events })
+    commit('getScheduledEvents', { walletId: payload.walletId, events: events.data })
 }
 
 async function removeScheduledEvent({ dispatch, commit }, payload) {
