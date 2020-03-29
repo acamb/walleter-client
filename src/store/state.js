@@ -7,6 +7,7 @@ export default {
             ownedShareRequests: [],
             shareRequests: [],
             walletEventsMap: {},
+            walletScheduledEventsMap: {},
             error: undefined
         }
     }

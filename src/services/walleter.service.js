@@ -22,10 +22,16 @@ export default {
         return apiClient.get('/event?walletId=' + walletId)
     },
 
+    getScheduledEvents(walletId) {
+        return apiClient.get('/scheduled?walletId=' + walletId)
+    },
+
     addEvent(event) {
         return apiClient.post('/event', event)
     },
-
+    addScheduledEvent(event) {
+        return apiClient.post('/scheduled', event)
+    },
     deleteEvent(walletId, eventId) {
         return apiClient.delete('/event',
             {
@@ -37,7 +43,17 @@ export default {
             }
         )
     },
+    deleteScheduledEvent(walletId, eventId) {
+        return apiClient.delete('/scheduled',
+            {
+                data: {
 
+                    wallet: { id: walletId },
+                    event: { id: eventId }
+                }
+            }
+        )
+    },
     getShares() {
         return apiClient.get('/share')
     },

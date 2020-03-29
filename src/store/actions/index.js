@@ -3,6 +3,7 @@ import { eventActions } from './event'
 import { shareActions } from './share'
 import router from '@/router'
 import walleterService from '../../services/walleter.service'
+import { scheduledActions } from '../actions/scheduledEvent'
 export default {
     async login({ dispatch, commit }, payload) {
         try {
@@ -23,5 +24,6 @@ export default {
     },
     ...walletActions,
     ...eventActions,
-    ...shareActions
+    ...shareActions,
+    ...scheduledActions
 }

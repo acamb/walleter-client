@@ -1,16 +1,17 @@
 <template>
     <b-row>
         <b-col md="3" sm="1" xs="1"></b-col>
-        <b-col md="6" sx="10" xs="10">
+        <b-col md="6" sm="10" xs="10">
             <div class="card">
                 <b-card-header>
                     <div class="card-title row">
-                        <b-col md="4" xs="3">
+                        <b-col md="6" xs="6" sm="6">
                             <h2 class="text-left">
                                 Wallets
                             </h2>
                         </b-col>
-                        <b-col offset="6" md="2" xs="2" class="text-right">
+                        <b-col md="4" sm="4" xs="4"></b-col>
+                        <b-col md="2" xs="2" sm="2" class="text-right">
                             <span
                                 ><b-icon-plus
                                     font-scale="2.5"
@@ -74,7 +75,7 @@ export default {
     methods: {
         ...mapActions(['deleteWallet']),
         details(id) {
-            router.push('/details/' + id);
+            router.push('/details/' + id + '/events');
         },
         deleteW(id) {
             this.deleteWallet({ id: id });

@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeComponent from '../components/HomeComponent.vue'
 import WalletDetailsComponent from '@/components/WalletDetailsComponent'
+import WalletEventsComponent from '@/components/WalletEventsComponent'
+import WalletScheduledComponent from '@/components/WalletScheduledComponent'
 import LoginComponent from '@/components/LoginComponent'
 import store from '@/store'
 import nProgress from 'nprogress'
@@ -22,7 +24,19 @@ const routes = [
     path: '/details/:id',
     name: 'Details',
     component: WalletDetailsComponent,
-    props: true
+    props: true,
+    children: [
+      {
+        path: 'events',
+        component: WalletEventsComponent,
+        props: true
+      },
+      {
+        path: 'scheduled',
+        component: WalletScheduledComponent,
+        props: true
+      }
+    ]
   }
 ]
 

@@ -1,6 +1,7 @@
 import eventMutations from './event'
 import shareMutations from './share'
 import walletMutations from './wallet'
+import scheduledMutations from './scheduledEvent'
 import walleterService from '@/services/walleter.service.js'
 import storeState from '@/store/state.js'
 export default {
@@ -23,5 +24,6 @@ export default {
     },
     ...eventMutations,
     ...shareMutations,
-    ...walletMutations
+    ...walletMutations,
+    ...scheduledMutations
 }
