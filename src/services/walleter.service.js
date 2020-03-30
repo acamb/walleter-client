@@ -3,7 +3,7 @@ import Axios from "axios";
 
 
 const apiClient = Axios.create({
-    baseURL: 'http://localhost:8081',
+    baseURL: process.env.VUE_APP_ENDPOINT,
     withCredentials: false,
     headers: {
         Accept: 'application/json',
@@ -19,21 +19,21 @@ export default {
     },
 
     getEvents(walletId) {
-        return apiClient.get('/event?walletId=' + walletId)
+        return apiClient.get('event?walletId=' + walletId)
     },
 
     getScheduledEvents(walletId) {
-        return apiClient.get('/scheduled?walletId=' + walletId)
+        return apiClient.get('scheduled?walletId=' + walletId)
     },
 
     addEvent(event) {
-        return apiClient.post('/event', event)
+        return apiClient.post('event', event)
     },
     addScheduledEvent(event) {
-        return apiClient.post('/scheduled', event)
+        return apiClient.post('scheduled', event)
     },
     deleteEvent(walletId, eventId) {
-        return apiClient.delete('/event',
+        return apiClient.delete('event',
             {
                 data: {
 
@@ -44,7 +44,7 @@ export default {
         )
     },
     deleteScheduledEvent(walletId, eventId) {
-        return apiClient.delete('/scheduled',
+        return apiClient.delete('scheduled',
             {
                 data: {
 
@@ -55,15 +55,15 @@ export default {
         )
     },
     getShares() {
-        return apiClient.get('/share')
+        return apiClient.get('share')
     },
 
     createShare(walletId, usernameToShare) {
-        return apiClient.post('/share', { walletId: walletId, username: usernameToShare })
+        return apiClient.post('share', { walletId: walletId, username: usernameToShare })
     },
 
     acceptShare(id) {
-        return apiClient.post('/share', {
+        return apiClient.post('share', {
             shareRequest: {
                 id: id
             },
@@ -72,7 +72,7 @@ export default {
     },
 
     rejectShare(id) {
-        return apiClient.post('/share', {
+        return apiClient.post('share', {
             shareRequest: {
                 id: id
             },
@@ -81,7 +81,7 @@ export default {
     },
 
     deleteShare(walletId, username) {
-        return apiClient.delete('/share', {
+        return apiClient.delete('share', {
             wallet: {
                 id: walletId
             },
@@ -90,22 +90,22 @@ export default {
     },
 
     getWallets() {
-        return apiClient.get('/wallet')
+        return apiClient.get('wallet')
     },
 
     createWallet(description, amount) {
-        return apiClient.post('/wallet', {
+        return apiClient.post('wallet', {
             description: description,
             amount: amount
         })
     },
 
     deleteWallet(id) {
-        return apiClient.delete('/wallet', { id: id })
+        return apiClient.delete('wallet', { id: id })
     },
 
     login(username, password) {
-        return apiClient.post('/auth', { username: username, password: password })
+        return apiClient.post('auth', { username: username, password: password })
     }
 
 }
